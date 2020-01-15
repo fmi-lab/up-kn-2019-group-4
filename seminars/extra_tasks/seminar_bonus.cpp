@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstring>
+#include<cassert>
 
 struct PersonalName{
     char first[21];
@@ -54,9 +55,7 @@ double get_avg_grades(const Student& st){
     return sum / 4;
 }
 void find_best_student(const Student*& students, const size_t& size){
-    if(!students) {
-        return;
-    }
+    assert(students);
     int index_max = 0;
     for(int i = 1; i < size; i++){
         if(get_avg_grades(students[i]) > get_avg_grades(students[index_max]) ){
@@ -69,6 +68,7 @@ void find_best_student(const Student*& students, const size_t& size){
 using predicate = bool (*)(const Student&);
 
 void filter_students(const Student* students, const size_t& size, predicate p){
+    assert(students);
     for(int i=0; i < size; i++){
         if(p(students[i])){
             print_student(students[i]);
@@ -85,6 +85,7 @@ void swap_students(Student& first, Student& second){
 }
 
 void sort_students(Student* start, Student* end, comparator compare){
+    assert(start && end && start < end);
     for(Student* current = start; current < end - 1; current++){
         for(Student* next = current + 1; next < end; next++){
             if(compare(*current, *next)){
@@ -103,6 +104,7 @@ bool compare_students(const Student& first, const Student& second){
 }
 int main() {
     Student* students = new Student[3];
+
     strcpy(students[0].student_name.first, "Ivan");
     strcpy(students[0].student_name.second, "Ivanov");
     strcpy(students[0].student_name.third, "Ivanov");
