@@ -68,4 +68,5 @@ int main() {
 
 	double grade = finalGrade(student.grades);
 	std::cout << grade << std::endl;
+	delete[] student.name;
 }
