@@ -68,12 +68,12 @@ void find_best_student(const Student*& students, const size_t& size){
 using predicate = bool (*)(const Student&);
 
 void filter_students(const Student* students, const size_t& size, predicate p){
-    assert(students);
+    assert(students); // instead of throwing assertion error, we could do further processing only if we have any students
     for(int i=0; i < size; i++){
         if(p(students[i])){
-            print_student(students[i]);
+            print_student(students[i]); // what can be done if we want to return filtered students?
         }
-    } 
+    }
 }
 
 using comparator = bool (*) (const Student& first, const Student& second);
@@ -134,5 +134,7 @@ int main() {
 
     filter_students(students, 3, has_even_faculty_number);
     sort_students(students, students + 3, compare_students);
+
+    delete [] students;
     return 0;
 }
